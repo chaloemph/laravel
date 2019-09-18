@@ -9,7 +9,7 @@
                 @csrf
                 <div class="row">
                     <div class="input-field col s6">
-                        <input id="first_name" name="name" type="text" class="validate">
+                    <input id="first_name" name="name" type="text" class="validate" value="{{old('name')}}">
                         <label for="first_name">First Name</label>
                         @if($errors->first('name'))
                         <span class="helper-text" style="color:red" data-error="wrong" data-success="right">{{$errors->first('name')}}</span>
@@ -29,7 +29,7 @@
                             <span class="helper-text" style="color:red" data-error="wrong" data-success="right">{{$errors->first('email')}}</span>
                             @endif
                         </div>
-                    <div class="input-field col s12">
+                    <div class="input-field col s6">
                         <select name="active">
                             <option value="" disabled selected>Choose your option</option>
                             <option value="1">active</option>
@@ -40,7 +40,7 @@
                             <span class="helper-text" style="color:red" data-error="wrong" data-success="right">{{$errors->first('active')}}</span>
                             @endif
                      </div>
-                     <div class="input-field col s12">
+                     <div class="input-field col s6">
                             <select name="company_id">
                                 @foreach ($companies as $company)
                                    <option value=" {{$company->id}}"> {{$company->name}}</option>
@@ -60,7 +60,7 @@
                 <h1>activeCustomers</h1>
                     <ul class="collection">
                         @foreach ($activeCustomers as $customer)
-                        <li class="collection-item">{{$loop->iteration}} . {{$customer->name}}</li>
+                        <li class="collection-item">{{$loop->iteration}} . {{$customer->name}} <label for="">{{$customer->company->name}}</label></li>
                         @endforeach
                     </ul>
             </div>
@@ -73,6 +73,23 @@
                 </ul>
             </div>
         </div>
+
+        <div class="row">
+                <div class="col s12">
+                    @foreach ($companies as $company)
+                        <h3>{{$company->name}}</h3>
+
+                        <ul>
+                            @foreach ($company->customers as $customer)
+                                <li>{{$customer->name}}</li>
+                            @endforeach
+                        </ul>
+                    @endforeach
+                </div>
+                
+            </div>
+
+
     </div>
     
     

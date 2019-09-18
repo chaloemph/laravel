@@ -3,12 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Customer;
+use App\Company;
 
 class Company extends Model
 {
     protected $guarded = [];
 
-    public function customers(Type $var = null)
+    public function customers()
     {
         return $this->hasMany(Customer::class);
     }

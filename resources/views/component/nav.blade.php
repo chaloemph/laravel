@@ -12,8 +12,11 @@
                 </li>
                 @endif
             @else
+            <li class="{{Request::is('home')? 'active':''}} "><a href="{{action(['App\Http\Controllers\HomeController' , 'index'])}}" class=" {{($page == 'home')? 'animated rollIn':''}}">Dashboard</a></li>
+            <li class="{{Request::is('home')? 'active':''}} "><a href="{{action('HomeController@index')}}" class=" {{($page == 'home')? 'animated rollIn':''}}">Dashboard</a></li>
             <li class="{{Request::is('home')? 'active':''}} "><a href="/home" class=" {{($page == 'home')? 'animated rollIn':''}}">Home</a></li>
             <li class="{{Request::is('about')? 'active':''}} "><a href="/about" class="{{($page == 'about')? 'animated rollIn':''}}">About</a></li>
+            <li class="{{Request::is('contact')? 'active':''}} "><a href="{{route('contact')}}" class="{{($page == 'contact')? 'animated rollIn':''}}">Contact</a></li>
             <li class="{{Request::is('product')? 'active':''}} "><a href="{{route('product')}}" class="{{($page == 'product')? 'animated rollIn':''}}">Product</a></li>
             <li class="{{Request::is('customer')? 'active':''}} "><a href="{{route('customer')}}" class="{{($page == 'customer')? 'animated rollIn':''}}">Customer</a></li>
             <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"> {{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a></li>

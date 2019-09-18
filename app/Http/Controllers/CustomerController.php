@@ -3,13 +3,24 @@
 namespace App\Http\Controllers;
 use App\Customer;
 use App\Company;
+use App\Mail\WelcomeNewUserMail;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CustomerController extends Controller
 {
-    public function list()
+
+   public function __construct()
     {
+        $this->middleware('auth');
+    }
+
+    
+    public function index()
+    {
+
+
     //    $activeCustomers = Customer::all()->where('active' , 1);
        $activeCustomers = Customer::Active()->get();
        $inactiveCustomers = Customer::Inactive()->get();
@@ -31,10 +42,22 @@ class CustomerController extends Controller
          'active'=> 'required',
          'company_id'=> 'required',
        ]);
-      
-       Customer::create($data);
 
-       return back();
+     
+
+       event(new NewCustomerHasRegisteredEvent());
+       Mail::to($data['email'])->send(new WelcomeNewUserMail());
+
+
+       \dump('Register to newsleter ');
+
+       \dump('Slack message here');
+           
+       
+      
+      //  Customer::create($data);
+
+      //  return back();
 
     }
 }

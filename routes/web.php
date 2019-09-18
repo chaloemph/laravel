@@ -29,7 +29,7 @@ Route::get('/home', function () {
 
 Route::get('/about', function () {
     return view('about');
-});
+})->middleware('test');
 
 
 Route::get('/loop', 'FirstController@loop');
@@ -37,11 +37,8 @@ Route::get('/loop', 'FirstController@loop');
 Route::get('/script','FirstController@script' );
 
 Route::get('/number/{id?}', 'FirstController@show');
-
 Route::get('/555','FirstController@index' );
-
 Route::get('/add', 'ProductController@insert');
-
 
 Route::get('/product', 'ProductController@index')->name('product');
 Route::get('/product/create', 'ProductController@create')->name('product.create');
@@ -51,8 +48,13 @@ Route::put('/product/{id}', 'ProductController@update')->name('product.update');
 Route::delete('/product/{id}', 'ProductController@destroy')->name('product.delete');;
 Route::get('/product/{id}/edit', 'ProductController@edit')->name('product.edit');
 
-Route::get('/customers', 'CustomerController@list')->name('customer');
+Route::get('/customers', 'CustomerController@index')->name('customer');
 Route::post('/customers/store', 'CustomerController@store')->name('customer.store');
+
+Route::get('/contact', 'ContactFormController@create')->name('contact');
+// php artisan make:mail ContractFromMail --markdown=emails.contact.contact-form
+Route::post('/contact', 'ContactFormController@store')->name('contact.store');
+
 
 
 

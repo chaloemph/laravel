@@ -13,8 +13,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    
+                    <my-button text="My new Text" type="button"></my-button>
+                    
                 </div>
             </div>
         </div>

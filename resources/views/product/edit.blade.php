@@ -11,7 +11,8 @@
         @endsection
         @section('content')
         <div class="row">
-            <form class="col s12" method="post" action="/product/{{$product->id}}">
+            {{-- <form class="col s12" method="post" action="/product/{{$product->id}}"> --}}
+            <form class="col s12" method="post" action="{{ route('product.update' , ['id'=> $product] ) }}">
                 @csrf
                 @method('put')
               <div class="row">

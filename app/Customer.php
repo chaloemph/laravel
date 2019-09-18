@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Customer;
+use App\Company;
+
 class Customer extends Model
 {
     // fillable example
@@ -21,8 +24,8 @@ class Customer extends Model
         return $query->where('active', 0);
     }
 
-    public function conpany()
+    public function company()
     {
-        return $this->belongTo(Company::class);
+        return $this->belongsTo(Company::class);
     }
 }
