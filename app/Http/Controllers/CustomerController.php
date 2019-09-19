@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 use App\Customer;
 use App\Company;
+use App\Events\NewCustomerHasRegisteredEvent;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeNewUserMail;
 
+
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+
 
 class CustomerController extends Controller
 {
@@ -33,9 +37,9 @@ class CustomerController extends Controller
 
     public function store()
     {
-      
 
-       $data = request()->validate([
+      
+       $customer = request()->validate([
          'name'=> 'required|min:3',
          'lastname'=> 'required|min:3',
          'email'=> 'required|email',
@@ -43,21 +47,10 @@ class CustomerController extends Controller
          'company_id'=> 'required',
        ]);
 
-     
+       event(new NewCustomerHasRegisteredEvent($customer));
 
-       event(new NewCustomerHasRegisteredEvent());
-       Mail::to($data['email'])->send(new WelcomeNewUserMail());
-
-
-       \dump('Register to newsleter ');
-
-       \dump('Slack message here');
-           
-       
-      
-      //  Customer::create($data);
-
-      //  return back();
+       Customer::create($customer);
+       return back();
 
     }
 }
