@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Customer;
 use App\Company;
 
 class Company extends Model

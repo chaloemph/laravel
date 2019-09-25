@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  web:
+    container_name: ${APP_NAME}_web
+    build:
+      context: ./docker/web
+    ports:
+      - 9000:80
+    volumes:
+      - ./:/var/www/app
+    depends_on:
+      - db
+  db:
+    container_name: ${APP_NAME}_db
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    restart: always
+    volumes:
+      - ./mysqldata:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=default
+    - MYSQL_DATABASE=laravel
+    - MYSQL_USER=root
+    - MYSQL_PASSWORD=1234
+  # phpmyadmin
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '8080:80'
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: 1234 
